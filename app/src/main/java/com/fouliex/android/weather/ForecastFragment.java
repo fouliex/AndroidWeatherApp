@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -97,6 +98,46 @@ public class ForecastFragment extends Fragment {
 
         private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
+        /**
+         * API returns a unix timestamp(measured in seconds),
+         * it must be converted to milliseconds in order to be converted to valid date.
+         *
+         * @param time-unix timesptamp
+         * @return date
+         */
+        private String getReadableDateString(long time) {
+            //TODO move outside aynctask later
+            SimpleDateFormat shortenedDateFormat = new SimpleDateFormat("EEE MMM dd");
+            return shortenedDateFormat.toString();
+        }
+
+        /**
+         * Prepare the weather high/lows for presentation.
+         *
+         * @param high
+         * @param low
+         * @return
+         */
+        private String formatHighLows(double high, double low) {
+            long roundedHigh = Math.round(high);
+            long roundedLow = Math.round(low);
+
+            String highLowStr = roundedHigh + "/" + roundedLow;
+            return highLowStr;
+        }
+
+        /**
+         *
+         * @param forecastJsonStr
+         * @param numDays
+         * @return
+         */
+        private String[] getWeatherDataFromJson(String forecastJsonStr,int numDays){
+            //TODO Write Code
+            return null;
+        }
+
+
         @Override
         protected Void doInBackground(String... params) {
 
@@ -130,7 +171,7 @@ public class ForecastFragment extends Fragment {
                 URL url = new URL(builtUri.toString());
 
                 //Debug
-                Log.v(LOG_TAG,"Build URI" + builtUri.toString());
+                Log.v(LOG_TAG, "Build URI" + builtUri.toString());
 
                 //Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
