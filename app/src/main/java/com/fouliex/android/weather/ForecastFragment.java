@@ -113,7 +113,7 @@ public class ForecastFragment extends Fragment {
         private String getReadableDateString(long time) {
             //TODO move outside aynctask later
             SimpleDateFormat shortenedDateFormat = new SimpleDateFormat("EEE MMM dd");
-            return shortenedDateFormat.toString();
+            return shortenedDateFormat.format(time);
         }
 
         /**
@@ -138,6 +138,8 @@ public class ForecastFragment extends Fragment {
          */
         private String[] getWeatherDataFromJson(String forecastJsonStr, int numDays) throws JSONException {
 
+
+
             //These are the names of the JSON objects that need to be extracted.
             final String OWM_LIST = "list";
             final String OWM_WEATHER = "weather";
@@ -152,8 +154,10 @@ public class ForecastFragment extends Fragment {
             Time dayTime = new Time();
             dayTime.setToNow();
 
+            // we start at the day returned by local time. Otherwise this is a mess.
             int julianStartDay = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
 
+            // now we work exclusively in UTC
             dayTime = new Time();
 
             String[] resultStrs = new String[numDays];
@@ -170,6 +174,7 @@ public class ForecastFragment extends Fragment {
                 long dateTime;
                 dateTime = dayTime.setJulianDay(julianStartDay + i);
                 day = getReadableDateString(dateTime);
+                Log.v(LOG_TAG, "GEORGE: " + day);
 
 
                 // description is in a child array called "weather", which is 1 element long.
@@ -286,6 +291,18 @@ public class ForecastFragment extends Fragment {
             }
             return null;
         }
+
+        @Override
+        protected void onPostExecute(String[] result) {
+            if (result != null) {
+                mForecastAdapter.clear();
+                for(String dayForecastStr : result) {
+                    mForecastAdapter.add(dayForecastStr);
+                }
+                // New data is back from the server.  Hooray!
+            }
+        }
     }
 }
+
 
