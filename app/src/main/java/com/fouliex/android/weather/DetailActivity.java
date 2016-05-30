@@ -1,6 +1,7 @@
 package com.fouliex.android.weather;
 
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * Created by DragonRider on 5/29/2016.
@@ -21,7 +23,7 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, new DetailFragment())
                     .commit();
         }
 
@@ -51,14 +53,21 @@ public class DetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public static class PlaceholderFragment extends Fragment {
-        public PlaceholderFragment() {
+    public static class DetailFragment extends Fragment {
+        public DetailFragment() {
 
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+
+            // The detail Activity called via intent. Inspect the intent for forecast data.
+            Intent intent = getActivity().getIntent();
+            if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
+                String forecastStr = intent.getStringExtra(Intent.EXTRA_TEXT);
+                ((TextView) rootView.findViewById(R.id.detail_text)).setText(forecastStr);
+            }
             return rootView;
         }
     }
