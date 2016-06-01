@@ -1,9 +1,21 @@
 <resources>
+
     <string name="app_name">Weather</string>
     <string name="action_settings">Settings</string>
-    <string name="settings">Settings</string>
     <string name="hello_world">Hello World</string>
+
+
+
+    <!-- Menu Label to fetch updated weather info from server -->
     <string name="action_refresh">Refresh</string>
-    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_detail">Details</string>
     <string name="title_activity_settings">Settings</string>
+
+
+    <!-- Label for the location preference [CHAR LIMIT=30] -->
+    <string name="pref_location_label">Location</string>
+    <!-- Key name for storing location in SharePreferences [CHAR LIMIT =NONE]-->
+    <string name="pref_location_key" translatable="false">location</string>
+    <!-- Default postal code for location preference [CHAR LIMIT =NONE] -->
+    <string name="pref_location_default" translatable="false">53188</string>
 </resources>
