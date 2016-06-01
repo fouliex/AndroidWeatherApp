@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 
 /**
  * Created by DragonRider on 5/30/2016.
@@ -18,6 +19,20 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
 
         //For all preferences, attach OnPreferenceChangeListener so the UI Summary can be updated when the preference change.
         //TODO : Add preference
+    }
+
+    /**
+     * Attaches a listener so the summary is always updated with the preference value.
+     * Also fires the listener once, to initialize the summary.
+     *
+     * @param preference
+     */
+    private void bindPreferenceSummaryToValue(Preference preference) {
+        //Set the listener to watch for value changes.
+        preference.setOnPreferenceChangeListener(this);
+
+        //Trigger the listener immediately with the preference's current value.
+        onPreferenceChange(preference, PreferenceManager.getDefaultSharedPreferences(preference.getContext()).getString(preference.getKey(), " "));
     }
 
     @Override
