@@ -15,10 +15,10 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Add 'general' preferences, defined in the XML file
-        //TODO: Add preferences from XML
+        addPreferencesFromResource(R.xml.pref_general);
 
         //For all preferences, attach OnPreferenceChangeListener so the UI Summary can be updated when the preference change.
-        //TODO : Add preference
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
     }
 
     /**
