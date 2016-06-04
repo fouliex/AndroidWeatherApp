@@ -17,7 +17,7 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
         //Add 'general' preferences, defined in the XML file
         addPreferencesFromResource(R.xml.pref_general);
 
-        //For all preferences, attach OnPreferenceChangeListener so the UI Summary can be updated when the preference change.
+        //For all preferences, attach OnPreferenceChangeListener so the UI Summary can be updated  when the preference change.
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_units_key)));
     }

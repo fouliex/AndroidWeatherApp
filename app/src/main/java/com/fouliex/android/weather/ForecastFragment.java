@@ -187,11 +187,8 @@ public class ForecastFragment extends Fragment {
 
             String[] resultStrs = new String[numDays];
 
-            SharedPreferences sharedPrefs =
-                    PreferenceManager.getDefaultSharedPreferences(getActivity());
-            String unitType = sharedPrefs.getString(
-                    getString(R.string.pref_units_key),
-                    getString(R.string.pref_units_metric));
+            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String unitType = sharedPrefs.getString(getString(R.string.pref_units_key), getString(R.string.pref_units_metric));
             Log.v(LOG_TAG, "UNIT TYPE " + unitType);
             for (int i = 0; i < weatherArray.length(); i++) {
 
