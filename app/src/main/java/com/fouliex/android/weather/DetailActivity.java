@@ -65,8 +65,10 @@ public class DetailActivity extends AppCompatActivity {
 
         private static final String LOG_TAG = DetailFragment.class.getSimpleName();
         private static final String FORECAST_SHARE_HASHTAG = " #WeatherAPP";
+        private String mForecastStr;
 
         public DetailFragment() {
+            setHasOptionsMenu(true);
 
         }
 
@@ -77,8 +79,8 @@ public class DetailActivity extends AppCompatActivity {
             // The detail Activity called via intent. Inspect the intent for forecast data.
             Intent intent = getActivity().getIntent();
             if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
-                String forecastStr = intent.getStringExtra(Intent.EXTRA_TEXT);
-                ((TextView) rootView.findViewById(R.id.detail_text)).setText(forecastStr);
+                mForecastStr = intent.getStringExtra(Intent.EXTRA_TEXT);
+                ((TextView) rootView.findViewById(R.id.detail_text)).setText(mForecastStr);
             }
             return rootView;
         }
@@ -103,8 +105,11 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private Intent createShareForecastIntent() {
-            //TODO imeplement...
-            return null;
+            Intent shareIntent = new Intent (Intent.ACTION_SEND);
+            shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT,mForecastStr +FORECAST_SHARE_HASHTAG);
+            return shareIntent;
         }
     }
 }
