@@ -93,9 +93,9 @@ public class DetailActivity extends AppCompatActivity {
             //Retrieve the share menu item
             MenuItem menuItem = menu.findItem(R.id.action_share);
 
-            //Ge the provider and hold onto it to set/change the share intent.
+            //Get the provider and hold onto it to set/change the share intent.
             ShareActionProvider mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
-
+            //Attach an intent to the ShareActionProvider
             if (mShareActionProvider != null) {
                 mShareActionProvider.setShareIntent(createShareForecastIntent());
             } else {
@@ -104,11 +104,16 @@ public class DetailActivity extends AppCompatActivity {
 
         }
 
+        /**
+         * Create the Share Forecast Intent
+         *
+         * @return - shareIntent
+         */
         private Intent createShareForecastIntent() {
-            Intent shareIntent = new Intent (Intent.ACTION_SEND);
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT,mForecastStr +FORECAST_SHARE_HASHTAG);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, mForecastStr + FORECAST_SHARE_HASHTAG);
             return shareIntent;
         }
     }
